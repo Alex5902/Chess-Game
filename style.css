@@ -1,0 +1,149 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to right, #fd4a4a, #2dfbff);  
+}
+
+.board{
+    display: grid;
+    grid-template-columns: repeat(8, 80px);
+    grid-template-rows: repeat(8, 80px);
+    background: #ffffff8e;
+    color: #000;
+    font-size: 18px;
+    position: relative;
+    border: 1px solid #000;
+}
+
+.board div{
+    border: 1px solid #000;
+    position: relative;
+}
+
+.dark{
+    background: #050b3376;
+    color: #fff;
+}
+
+.numbers, .letters{
+    margin: 0;  /* p tags have default margins from the user agent stylesheet. These are built in styles provided by the browser */
+    position: absolute;
+}
+
+.numbers{
+    top: 3px;
+    left: 3px;
+}
+
+.letters{
+    bottom: 3px;
+    right: 3px;
+}
+
+/* ---------------chess pieces-------------- */
+
+#pawnW1, #pawnW2, #pawnW3, #pawnW4, #pawnW5, #pawnW6, #pawnW7, #pawnW8{
+    background-image: url(images/pawnW.png);
+    background-size: cover; /* scales the image as large as possible while preserving aspect ratio */
+}
+
+#pawnB1, #pawnB2, #pawnB3, #pawnB4, #pawnB5, #pawnB6, #pawnB7, #pawnB8{
+    background-image: url(images/pawnB.png);
+    background-size: cover;
+}
+
+#rookW1, #rookW2{
+    background-image: url(images/rookW.png);
+    background-size: cover;
+}
+
+#rookB1, #rookB2{
+    background-image: url(images/rookB.png);
+    background-size: cover;
+}
+
+#knightW1, #knightW2{
+    background-image: url(images/knightW.png);
+    background-size: cover;
+}
+
+#knightB1, #knightB2{
+    background-image: url(images/knightB.png);
+    background-size: cover;
+}
+
+#bishopW1, #bishopW2{
+    background-image: url(images/bishopW.png);
+    background-size: cover;
+}
+
+#bishopB1, #bishopB2{
+    background-image: url(images/bishopB.png);
+    background-size: cover;
+}
+
+#queenW1, #queenW2, #queenW3, #queenW4, #queenW5, #queenW6, #queenW7, #queenW8, #queenW9{
+    background-image: url(images/queenW.png);
+    background-size: cover;
+}
+
+#queenB1, #queenB2, #queenB3, #queenB4, #queenB5, #queenB6, #queenB7, #queenB8, #queenB9{
+    background-image: url(images/queenB.png);
+    background-size: cover;
+}
+
+#kingW1{
+    background-image: url(images/kingW.png);
+    background-size: cover;
+}
+
+#kingB1{
+    background-image: url(images/kingB.png);
+    background-size: cover;
+}
+
+.legalMoves::after{
+    content: '';
+    position: absolute;
+    top: 50%; /* adjusts the top left corner of the square 50% from the top */
+    left: 50%; /* adjusts the top left corner of the square 50% from the left */
+    transform: translate(-50%, -50%); /* shifts the circle 50% of its width and height to centre the circle */ 
+    width: 20%;
+    height: 20%;
+    background: #ff0000;
+    border-radius: 50%;
+}
+
+.checkmateWhite, .checkmateBlack{
+    display: none;
+    padding: 3px 0;
+    margin-top: 5px;
+}
+
+.checkmateWhite p, .checkmateBlack p{
+    padding: 0;
+    margin: 0;
+}
+
+.checkmateWhite.show{
+    display: block;
+    background: #fff;
+    color: #000;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.checkmateBlack.show{
+    display: block;
+    background: #000;
+    color: #fff;
+    border-radius: 10px;
+    text-align: center;
+}
