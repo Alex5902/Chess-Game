@@ -63,10 +63,10 @@ function selectPiece(event) {
     turn = event.target.id.includes("W") ? "W" : "B";
 
     for (let i = 0; i < legalMoves.length; i++) {         
-        console.log(legalMoves.length, i);
+        console.log("number of legal moves", legalMoves.length);
         possibleMove = legalMoves[i];
         const legalMovesAgain = legalMoves;
-        console.log(legalMovesAgain);
+        console.log("legal moves before exist check:", legalMovesAgain);
         legalMoves = [];
         possibleMove.id ? attackingPieceID = possibleMove.id : null;
         let originalID = event.target.id;
@@ -80,7 +80,7 @@ function selectPiece(event) {
         attackingPieceID ? possibleMove.id = attackingPieceID : possibleMove.removeAttribute("id");
         attackingPieceID = null;
         legalMoves = legalMovesAgain;
-        console.log(legalMoves);
+        console.log("legal moves after exist check", legalMoves);
         if (check) {
             removeMoves(possibleMove);
             possibleMove.removeEventListener("click", movePiece);
@@ -193,14 +193,17 @@ function movePiece(event) {
 
     existsCheck();
     legalMoves = [];
-    console.log(check);
+    console.log("is it check", check);
     if (check) {
         turn = opponentColour;
         opponentColour = temp;
         const pieces = document.querySelectorAll(`[id*=${opponentColour}]`);
         stopChecker = true;
+        let totalMoves = 0;
+        let checkCounter = 0;
         pieces.forEach(element => {
             pieceType(element);
+            totalMoves += legalMoves.length;
             for (let i = 0; i < legalMoves.length; i++) {         
                 possibleMove = legalMoves[i];
                 const legalMovesAgain = legalMoves;
@@ -210,24 +213,30 @@ function movePiece(event) {
                 possibleMove.id = originalID;
                 element.removeAttribute("id");
                 existsCheck();
+                console.log("legal moves after checked", legalMoves);
                 legalMoves = [];
-                // console.log(check);
+                console.log("is this check:", check);
+                console.log("piece:", element);
+                console.log("is this checkmate:", checkmate);
                 element.id = originalID;
                 attackingPieceID ? possibleMove.id = attackingPieceID : possibleMove.removeAttribute("id");
                 attackingPieceID = null;
                 legalMoves = legalMovesAgain;
-                // console.log(legalMoves);
+                // console.log("legal moves after checked", legalMoves);
                 if (check) {
+                    checkCounter++;
                     check = false;
                     legalMoves.splice(i, 1); // removes one element from index i
                     i--;
                 } else {
+                    console.log("checkmate false with piece:", element);
                     checkmate = false;
                     break;
                 }
             }
         });
-        if (checkmate) {
+
+        if (checkmate || checkCounter == totalMoves) {
             if (turn == 'B') {
                 const checkmateDiv = document.querySelector(".checkmateWhite");
                 checkmateDiv.classList.add("show");
@@ -423,7 +432,7 @@ const existsCheck = () => {
         for (let bishop of bishops) {
             bishop ? isCheck(bishop) : null;
         }
-        console.log(legalMoves);
+        // console.log(legalMoves);
         const rooks = document.querySelectorAll("[id^='rookB']");
         for (let rook of rooks) {
             rook ? isCheck(rook) : null;
@@ -628,7 +637,7 @@ const bishopMoves = (square) => {
             if (checkSquare.id.includes(opponentColour)) {
                 if (!legalMoves.includes(checkSquare)) {
                     legalMoves.push(checkSquare);
-                    console.log(checkSquare);
+                    // console.log(checkSquare);
                     break; // exit the for loop
                 } else {
                     break;
@@ -937,8 +946,8 @@ const kingMoves = (square) => {
     bottomLeftDiagonal && !willTwoKingsTouch(bottomLeftDiagonal) && (!bottomLeftDiagonal.id || bottomLeftDiagonal.id.includes(opponentColour)) ? legalMoves.push(bottomLeftDiagonal) : null;
     topRightDiagonal && !willTwoKingsTouch(topRightDiagonal) && (!topRightDiagonal.id || topRightDiagonal.id.includes(opponentColour)) ? legalMoves.push(topRightDiagonal) : null;
     bottomRightDiagonal && !willTwoKingsTouch(bottomRightDiagonal) && (!bottomRightDiagonal.id || bottomRightDiagonal.id.includes(opponentColour)) ? legalMoves.push(bottomRightDiagonal) : null;
-    console.log(legalMoves);
-    console.log(oneSquareRight);
+    console.log("legal king moves:", legalMoves);
+    // console.log(oneSquareRight);
     if (turn == "W") {
         if (!hasKingWMoved && !hasRookW1Moved && !document.querySelector(`.${previousTwoFiles}${currentRank}`).id && !document.querySelector(`.${previousFile}${currentRank}`).id && !document.querySelector(`.${previousThreeFiles}${currentRank}`).id && legalMoves.includes(oneSquareLeft)) {
             legalMoves.push(document.querySelector(`.${previousTwoFiles}${currentRank}`));
