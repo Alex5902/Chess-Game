@@ -10,10 +10,10 @@ This chess game was one of my first coding projects. Although the code may be a 
 - **Frontend**: HTML, CSS, JavaScript
 
 ## Key Features
--**Interactive Chessboard**: Players can select pieces and see all legal moves indicated by red dots.
--**Move Validation**: Pieces can only be selected if they have valid moves.
--**Checkmate Detection**: The game ends with a winner message when a checkmate occurs.
--**User-Friendly Interface**: The board dynamically updates after every move, offering a smooth playing experience.
+- **Interactive Chessboard**: Players can select pieces and see all legal moves indicated by red dots.
+- **Move Validation**: Pieces can only be selected if they have valid moves.
+- **Checkmate Detection**: The game ends with a winner message when a checkmate occurs.
+- **User-Friendly Interface**: The board dynamically updates after every move, offering a smooth playing experience.
 
 <table>
   <tr>
